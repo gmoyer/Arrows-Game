@@ -74,20 +74,8 @@ void GameWindow::spawnArrows(int row, QColor color, Player* player, bool facingU
             Direction direction;
             if (facingUp) {
                 direction = Direction::UP;
-                // if (r == 0)
-                //     direction = Direction::UP_LEFT;
-                // else if (r == 1)
-                //     direction = Direction::UP;
-                // else
-                //     direction = Direction::UP_RIGHT;
             } else {
                 direction = Direction::DOWN;
-                // if (r == 0)
-                //     direction = Direction::DOWN_LEFT;
-                // else if (r == 1)
-                //     direction = Direction::DOWN;
-                // else
-                //     direction = Direction::DOWN_RIGHT;
             }
             Arrow* arrow = new Arrow(player, pos, direction, color);
             player->addArrow(arrow);
@@ -114,6 +102,17 @@ void GameWindow::startTurn() {
     opposingPlayer = players[(activePlayerNum+1) % 2];
     updateLabels();
     activePlayer->updateOpArrows(opposingPlayer->getArrows());
+
+    if (!canPlayerMove(activePlayer))
+        endGame(opposingPlayer);
+}
+
+bool GameWindow::canPlayerMove(Player *player) {
+    for (Arrow* arrow : player->getArrows()) {
+        if (canMove(arrow))
+            return true;
+    }
+    return false;
 }
 
 void GameWindow::arrowClicked(Arrow *arrow) {

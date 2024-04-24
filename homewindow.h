@@ -6,7 +6,6 @@
 #include <sstream>
 #include <QAbstractTableModel>
 #include "player.h"
-#include "leaderboard.h"
 
 #define PLAYER_COUNT 2
 

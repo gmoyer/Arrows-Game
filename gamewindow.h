@@ -63,6 +63,7 @@ private:
     void moveArrow(Arrow* arrow);
     void updateArrows();
     void rerender();
+    bool canPlayerMove(Player* player);
 
     void updateLabels();
 
